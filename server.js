@@ -1,42 +1,22 @@
-// const express =require('express');
-// const mongoose =require('mongoose')
+const express = require('express')
+const mongoose = require('mongoose')
+const connectDB = require('./config/db')
+const bookroutes = require('./routes/bookRoutes')
 
-// const app=express();
+const app = express()
 
-// const port=3000;
+const PORT = 3000
 
-// app.get('/',(req,res) => {
+app.use(express.json())
 
-//     res.send("hello from node js ");
+connectDB()
 
-// });
+app.use('/api', bookroutes)
 
-// app.listen(port,()=>{
-//     console.log("server is running ")
-// })
-
-// server.js
-const express = require('express');
-const connectDB = require('./config/db'); // 👈 Importing DB connection
-const bookroute = require('./routes/bookRoutes')
-
-const app = express();
-const PORT = 3000;
-
-// Middleware (optional)
-app.use(express.json());
-
-// Connect to MongoDB
-connectDB();
-
-app.use('/api', bookroute)
-
-// Routes
 app.get('/', (req, res) => {
-res.send('🚀 Node.js server with MongoDB is running!');
-});
+    res.send("hello world")
+})
 
-// Start server
 app.listen(PORT, () => {
-console.log("chal raha ");
-});
+    console.log("Server is running ")
+})
