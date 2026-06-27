@@ -1,24 +1,12 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const connectDB = require('./config/db')
-const bookroutes = require('./routes/bookRoutes')
 
-const app = express()
+const connectDB = require('./src/config/db')
+const app = require('./src/app')
 
-const PORT = 3000
+const PORT = 8080
 
-app.use(express.json())
 
 connectDB()
 
-app.use('/api', bookroutes)
-
-app.get('/', (req, res) => {
-    res.send("hello world")
-})
-app.get('/getbook', (req, res) => {
-    res.send("hello world")
-})
 
 app.listen(PORT, () => {
     console.log("Server is running ")
