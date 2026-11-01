@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bookschema = new mongoose.Schema({
     title: {
         type: String,
-        required: true  // 👈 'require' nahi, 'required' hota hai
+        required: true
     },
     auther: {
         type: String,
@@ -36,7 +36,7 @@ const bookschema = new mongoose.Schema({
     },
 },
     {
-        timeStamps: true, strict: true
+        timestamps: true, strict: true
 
 
     });

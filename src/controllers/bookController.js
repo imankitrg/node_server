@@ -1,20 +1,31 @@
 const book = require('../models/bookmodel');
+const { getAllBook } = require('../services/book.service');
 //get book
 
 const getallbooks = async (req, res) => {
     try {
-        const books = await book.find();
-        res.json({
+
+        const result = await getAllBook(req.query);
+
+        res.status(200).json({
             success: true,
             message: "Books fetched successfully",
-            books
+            data: result.books,
+            pagination: result.pagination,
         });
-    }
-    catch (err) {
+
+        console.log(req.query);
+        console.log(result);
+
+
+
+    } catch (err) {
+
         res.status(500).json({
-            message: "Failed to get all books",
-            error: err.message
+            success: false,
+            message: err.message,
         });
+
     }
 };
 
@@ -28,6 +39,25 @@ const createbook = async (req, res) => {
             success: true,
             message: "Book created successfully",
             savedbook
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            message: "Failed to create book",
+            error: err.message
+        });
+    }
+}
+// post multiple book
+
+const createbooks = async (req, res) => {
+    try {
+
+        const savedbook = await book.insertMany(req.body)
+        res.status(201).json({
+            success: true,
+            message: "Book created successfully",
+            data: savedbook
         });
     }
     catch (err) {
@@ -79,6 +109,7 @@ const deletebook = async (req, res) => {
 module.exports = {
     getallbooks,
     createbook,
+    createbooks,
     updatebook,
     deletebook,
 };
